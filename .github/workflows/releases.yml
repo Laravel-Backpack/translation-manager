@@ -1,0 +1,68 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      new_tag:
+        description: 'New Tag'
+        required: true  
+      prev_tag:
+        description: 'Prev Tag'
+        required: true  
+
+jobs:
+  changelog:
+    name: Update changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Code" 
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          token: ${{ secrets.GH_ACTION_PAT }}
+      - name: "Generate full changelog"
+        id: generate_changelog
+        uses: heinrichreimer/action-github-changelog-generator@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} 
+          output: CHANGELOG.md
+          futureRelease: ${{ github.event.inputs.new_tag }}
+          dateFormat: '%d-%b-%Y'
+          simpleList: true
+          compareLink: false
+          usernamesAsGithubLogins: true
+      - name: Commit changes
+        id: commit_changelog
+        timeout-minutes: 1
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'Update CHANGELOG.md'
+          branch: main
+      - name: "Generate new changelog"
+        id: generate_changelog_partial
+        uses: heinrichreimer/action-github-changelog-generator@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} 
+          output: UPDATES.md
+          futureRelease: ${{ github.event.inputs.new_tag }}
+          dateFormat: '%d-%b-%Y'
+          simpleList: true
+          sinceTag: ${{ github.event.inputs.prev_tag }}
+          compareLink: false
+          usernamesAsGithubLogins: true
+      - name: Extract new changes
+        id: extract_change
+        run: |
+          content=`cat UPDATES.md | awk NF | head -n -1 | tac | head -n -2`
+          # the following lines are only required for multi lines
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=changelog::$content"
+      - uses: avakar/tag-and-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.new_tag }}
+          body: ${{steps.extract_change.outputs.changelog}}
+          commit: ${{ steps.commit_changelog.outputs.commit_sha }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
