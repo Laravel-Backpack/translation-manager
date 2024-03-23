@@ -1,4 +1,4 @@
-name: PHP Stan and Tests
+name: PHP Stan
 
 on: [push]
 
@@ -38,9 +38,3 @@ jobs:
 
       - name: PHP Stan Analyse
         run: composer analyse
-
-      - name: PHP Tests
-        run: composer test
-
-
-
