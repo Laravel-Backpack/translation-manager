@@ -3,14 +3,24 @@
 namespace Backpack\LanguageManager\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Backpack\LanguageManager\Models\LanguageLineOriginal;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use ReflectionClass;
-use Spatie\TranslationLoader\LanguageLine as LanguageLineOriginal;
 use Spatie\TranslationLoader\TranslationLoaderManager;
 use Sushi\Sushi;
 use Symfony\Component\Finder\SplFileInfo;
 
+/**
+ * @property int $id
+ * @property int $id_database
+ * @property array $text
+ * @property string $search
+ * @property boolean $database
+ * @property string $group
+ * @property string $key
+ * @property string $created_at
+ */
 class LanguageLine extends LanguageLineOriginal
 {
     use CrudTrait;
@@ -70,7 +80,7 @@ class LanguageLine extends LanguageLineOriginal
 
         // file entries
         collect($filePaths)
-            ->flatMap(File::allFiles(...))
+            ->flatMap(fn(string $path) => File::allFiles($path))
             ->filter(fn(SplFileInfo $file) => $file->getExtension() === 'php')
             ->each(function (SplFileInfo $file) use (&$entries) {
                 $group = Str::beforeLast($file->getFilename(), '.php');

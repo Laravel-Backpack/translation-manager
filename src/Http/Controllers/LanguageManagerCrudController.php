@@ -5,10 +5,10 @@ namespace Backpack\LanguageManager\Http\Controllers;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\LanguageManager\Models\LanguageLine;
+use Backpack\LanguageManager\Models\LanguageLineOriginal;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
-use Spatie\TranslationLoader\LanguageLine as LanguageLineOriginal;
 
 /**
  * Class LanguageManagerCrudController
@@ -21,8 +21,10 @@ class LanguageManagerCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
     use \Backpack\LanguageManager\Http\Operations\MinorUpdateOperation;
+
+    private $minorUpdateEntry = null;
+    private $minorUpdateRequest = null;
 
     /**
      * Setup

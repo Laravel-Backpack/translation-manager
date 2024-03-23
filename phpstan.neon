@@ -1,0 +1,15 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+
+parameters:
+
+    paths:
+        - src/
+        - config/
+        - resources/
+        - routes/
+
+    excludePaths:
+        - src/Http/Operations/MinorUpdateOperation.php
+
+    level: 5
