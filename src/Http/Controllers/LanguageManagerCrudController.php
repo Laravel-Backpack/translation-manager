@@ -5,7 +5,6 @@ namespace Backpack\LanguageManager\Http\Controllers;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\LanguageManager\Models\LanguageLine;
-use Backpack\LanguageManager\Models\LanguageLineOriginal;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
@@ -21,10 +20,7 @@ class LanguageManagerCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\LanguageManager\Http\Operations\MinorUpdateOperation;
-
-    private $minorUpdateEntry = null;
-    private $minorUpdateRequest = null;
+    use \Backpack\LanguageManager\Http\Operations\CanUseEditableColumns;
 
     /**
      * Setup
@@ -194,44 +190,5 @@ class LanguageManagerCrudController extends CrudController
         ], function (string $option): void {
             CRUD::addClause('where', 'database', $option === 'database');
         });
-    }
-
-    /**
-     * Override the parent method to customize the saving
-     */
-    public function saveMinorUpdateEntry()
-    {
-        $entry = $this->minorUpdateEntry;
-        $request = $this->minorUpdateRequest;
-        $locale = App::getLocale();
-
-        // update
-        if ($entry->id_database) {
-            $text = $entry->text;
-            $text[$locale] = $request->value;
-
-            $entry = LanguageLineOriginal::find($entry->id_database);
-            $entry->text = $text;
-            $entry->save();
-        }
-
-        // create
-        else {
-            [$group, $key] = explode('.', $request->id);
-
-            LanguageLineOriginal::create([
-                'group' => $group,
-                'key' => $key,
-                'text' => [
-                    $locale => $request->value,
-                ],
-            ]);
-        }
-
-        // fetch the entry from sushi
-        $entry = LanguageLine::find($request->id);
-        $entry->database = true;
-
-        return $entry;
     }
 }

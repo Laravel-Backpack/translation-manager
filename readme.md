@@ -1,16 +1,16 @@
 # Language Manager
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![The Whole Fruit Manifesto](https://img.shields.io/badge/writing%20standard-the%20whole%20fruit-brightgreen)](https://github.com/the-whole-fruit/manifesto)
 
-Language Manager provides a user interface for Backpack to manage translations. It allows you to:
+Language Manager provides a simple user interface to help you deal with translations in your Backpack application.
+At a quick glance, some of the most relevant features are:
 
 - View a list of all translations present in your application's language files (including vendor translations).
-- Edit translations directly within the list.
+- Edit translations directly from the interface.
 - Search and filter translations for easy management.
 
-This package leverages the functionalities of `spatie/laravel-translation-loader` to Backpack for Laravel, providing a user interface to manage translations.
+This package uses the battle tested [spatie/laravel-translation-loader](https://github.com/spatie/laravel-translation-loader) under the hood.
 
 ## Preview
 
@@ -25,48 +25,43 @@ Try it right now, edit some translations in [our online demo](https://demo.backp
 
 In your Laravel + Backpack project, install this package:
 
-1) Install the package using Composer:
+**1) Install the package using Composer**:
 
 ```bash
 composer require backpack/language-manager
 ```
 
-2) Add menu items to `sidebar_content.blade.php`:
+**2) Configure the application**
 
-```bash
-php artisan backpack:add-menu-content "<x-backpack::menu-item title=\"Language Managers\" icon=\"la la-stream\" :link=\"backpack_url('language-manager')\" />"
+If you already had [spatie/laravel-translation-loader](https://github.com/spatie/laravel-translation-loader) installed and configured, you can skip to next step. Otherwise, follow along. 
+
+ In you application `config/app.php` you must replace Laravel's translation service provider:
+
+```diff
+-Illuminate\Translation\TranslationServiceProvider::class,
++Spatie\TranslationLoader\TranslationServiceProvider::class,
 ```
 
-3) Optionally, publish the config file:
-
+You must publish and run the migrations to create the `language_lines` table:
 ```bash
-php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="migrations" && php artisan migrate
 ```
 
-4) But also, if your package didn't already have [`spatie/laravel-translation-loader`](https://github.com/spatie/laravel-translation-loader) installed and set up, please [follow the installation steps in their docs](https://github.com/spatie/laravel-translation-loader#installation). We'll also copy-paste them here, for your convenience:
+**3) Optional setup options**
 
+3.1) Add a menu item to `menu_items.blade.php` for easy access:
 
-    4.1) In `config/app.php` you should replace Laravel's translation service provider
+```bash
+php artisan backpack:add-menu-content "<x-backpack::menu-item title=\"Language Manager\" icon=\"la la-stream\" :link=\"backpack_url('language-manager')\" />"
+```
 
-    ```diff
-    -Illuminate\Translation\TranslationServiceProvider::class,
-    +Spatie\TranslationLoader\TranslationServiceProvider::class,
-    ```
+3.2) Publish the config files:
 
-    4.2) You must publish and run the migrations to create the `language_lines` table:
+```bash
+php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="config" && php artisan vendor:publish --provider="Backpack\LanguageManager\AddonServiceProvider" --tag="config"
+```
 
-    ```bash
-    php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="migrations"
-    php artisan migrate
-    ```
-
-    4.3) Optionally you could publish the config file using this command.
-
-    ```bash
-    php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="config"
-    ```
-
-5) We highly recommend you to use this package allong with the [Language Switcher](https://github.com/Laravel-Backpack/language-switcher) package, so you can easily switch between languages in your panel.
+**NOTE:** We highly recommend you to use this package alongside [Language Switcher](https://github.com/Laravel-Backpack/language-switcher) package, so that you can easily switch between languages in your panel.
 
 
 ## Usage
@@ -79,7 +74,10 @@ All translations including vendor translations are displayed in the list view, i
 
 ### Editing Translations:
 
-You can directly edit translations within the list view itself if you have the [Editable Columns](https://backpackforlaravel.com/products/editable-columns) package.
+You can directly edit translations within the list itself if you have the [Editable Columns](https://backpackforlaravel.com/products/editable-columns) package. 
+If you don't want that behavior you can disable it in the `config/backpack/language-manager.php` file by setting `useEditableColumns => false`. 
+If you don't find that file, see above the optional steps to publish the config files.
+
 Once edited, the changes are saved to the database for persistence. All translations on the database have priority over the ones in the language files.
 
 ## Security
@@ -94,11 +92,10 @@ If you discover any security related issues, please email cristian.tabacitu@back
 
 ## License
 
-This project was released under MIT License, so you can install it on top of any Backpack & Laravel project. Please see the [license file](license.md) for more information.
+This project was released under EULA, so you can install it on top of any Backpack & Laravel project. Please see the [license file](https://backpackforlaravel.com/products/calendar-operation/license.md) for more information. 
 
 [ico-version]: https://img.shields.io/packagist/v/backpack/language-manager.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/backpack/language-manager.svg?style=flat-square
+[ico-download]: https://img.shields.io/packagist/dt/backpack/language-manager.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/backpack/language-manager
-[link-downloads]: https://packagist.org/packages/backpack/language-manager
+[link-author]: https://github.com/laravel-backpack
 [link-contributors]: ../../contributors
