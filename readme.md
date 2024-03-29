@@ -23,7 +23,7 @@ Try it right now, edit some translations in [our online demo](https://demo.backp
 
 ## Installation
 
-In your Laravel + Backpack project, install this package:
+In your Laravel + Backpack project:
 
 **1) Install the package using Composer**:
 
@@ -33,18 +33,19 @@ composer require backpack/language-manager
 
 **2) Configure the application**
 
-If you already had [spatie/laravel-translation-loader](https://github.com/spatie/laravel-translation-loader) installed and configured, you can skip to next step. Otherwise, follow along. 
+> _If you already had [spatie/laravel-translation-loader](https://github.com/spatie/laravel-translation-loader) installed and configured, you can skip to the next step. Otherwise, follow along._
 
- In you application `config/app.php` you must replace Laravel's translation service provider:
+2.1) In your `config/app.php` you must replace Laravel's translation service provider:
 
 ```diff
 -Illuminate\Translation\TranslationServiceProvider::class,
 +Spatie\TranslationLoader\TranslationServiceProvider::class,
 ```
 
-You must publish and run the migrations to create the `language_lines` table:
+2.2) You must publish and run the migrations to create the `language_lines` table:
 ```bash
-php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="migrations" && php artisan migrate
+php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="migrations"
+php artisan migrate
 ```
 
 **3) Optional setup options**
@@ -58,7 +59,8 @@ php artisan backpack:add-menu-content "<x-backpack::menu-item title=\"Language M
 3.2) Publish the config files:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="config" && php artisan vendor:publish --provider="Backpack\LanguageManager\AddonServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Backpack\LanguageManager\AddonServiceProvider" --tag="config"
 ```
 
 **NOTE:** We highly recommend you to use this package alongside [Language Switcher](https://github.com/Laravel-Backpack/language-switcher) package, so that you can easily switch between languages in your panel.
@@ -75,7 +77,7 @@ All translations including vendor translations are displayed in the list view, i
 ### Editing Translations:
 
 You can directly edit translations within the list itself if you have the [Editable Columns](https://backpackforlaravel.com/products/editable-columns) package. 
-If you don't want that behavior you can disable it in the `config/backpack/language-manager.php` file by setting `useEditableColumns => false`. 
+If you don't want that behavior you can disable it in the `config/backpack/language-manager.php` file by setting `use_editable_columns => false`. 
 If you don't find that file, see above the optional steps to publish the config files.
 
 Once edited, the changes are saved to the database for persistence. All translations on the database have priority over the ones in the language files.
@@ -95,7 +97,8 @@ If you discover any security related issues, please email cristian.tabacitu@back
 This project was released under EULA, so you can install it on top of any Backpack & Laravel project. Please see the [license file](https://backpackforlaravel.com/products/calendar-operation/license.md) for more information. 
 
 [ico-version]: https://img.shields.io/packagist/v/backpack/language-manager.svg?style=flat-square
-[ico-download]: https://img.shields.io/packagist/dt/backpack/language-manager.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/backpack/language-manager.svg?style=flat-square
 
 [link-author]: https://github.com/laravel-backpack
 [link-contributors]: ../../contributors
+[link-downloads]: https://packagist.org/packages/backpack/language-manager

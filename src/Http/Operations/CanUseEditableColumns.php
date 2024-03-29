@@ -2,7 +2,6 @@
 
 namespace Backpack\LanguageManager\Http\Operations;
 
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\LanguageManager\Models\LanguageLine;
 use Backpack\LanguageManager\Models\LanguageLineOriginal;
 use Illuminate\Support\Facades\App;
@@ -17,7 +16,7 @@ if (class_exists(\Backpack\EditableColumns\AddonServiceProvider::class)) {
 
         private function editableColumnsEnabled(): bool
         {
-            return config('backpack.language-manager.useEditableColumns');
+            return config('backpack.language-manager.use_editable_columns');
         }
 
         /**

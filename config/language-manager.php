@@ -27,5 +27,5 @@ return [
     'display_source' => false,
 
     // If you have Editable Columns addon, Backpack will use it in the translations table.
-    'useEditableColumns' => true,
+    'use_editable_columns' => true,
 ];
