@@ -10,6 +10,6 @@ parameters:
         - routes/
 
     excludePaths:
-        - src/Http/Operations/MinorUpdateOperation.php
+        - src/Http/Operations/CanUseEditableColumns.php
 
     level: 5
