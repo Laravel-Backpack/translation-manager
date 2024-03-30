@@ -110,7 +110,7 @@ If you discover any security related issues, please email cristian.tabacitu@back
 
 ## License
 
-This project was released under EULA, so you can install it on top of any Backpack & Laravel project. Please see the [license file](https://backpackforlaravel.com/products/calendar-operation/license.md) for more information. 
+This project was released under MIT License, so you can install it on top of any Backpack & Laravel project. Please see the [license file](https://backpackforlaravel.com/products/language-manager/license.md) for more information. 
 
 [ico-version]: https://img.shields.io/packagist/v/backpack/language-manager.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/backpack/language-manager.svg?style=flat-square
