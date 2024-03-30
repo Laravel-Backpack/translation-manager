@@ -14,6 +14,8 @@ This package uses the battle tested [spatie/laravel-translation-loader](https://
 
 ## Preview
 
+// TODO: image here
+
 ![](https://user-images.githubusercontent.com/1032474/205863022-827f3248-a9f3-4d05-896f-5fa7a40227be.gif)
 
 
@@ -68,19 +70,32 @@ php artisan vendor:publish --provider="Backpack\LanguageManager\AddonServiceProv
 
 ## Usage
 
-### Translation List View:
+### List View:
 
-The list view displays a comprehensive list of all translations within your application.
-You can search and filter translations using provided functionalities. Filters are available with the [Backpack Pro](https://backpackforlaravel.com/products/pro-for-unlimited-projects) package.  
-All translations including vendor translations are displayed in the list view, if you don't want to see vendor translations, you can filter them out setting the `load_all_registered_translation_paths` config option to `false`.
+// TODO: image here
 
-### Editing Translations:
+The list view displays a comprehensive list of all translations within your application. By default, all translations including vendor translations are displayed in the list view. If you don't want to see vendor translations, you can set the config option `load_all_registered_translation_paths` to `false` in `config/backpack/language-manager.php`.
 
-You can directly edit translations within the list itself if you have the [Editable Columns](https://backpackforlaravel.com/products/editable-columns) package. 
+Additionally, if you have [Backpack Pro](https://backpackforlaravel.com/products/pro-for-unlimited-projects) installed, your admin can also see and use the filters, to quickly narrow down translations.
+
+### Edit View
+
+// TODO: image here
+
+Any translation can be edited by clicking the Edit button. It will open a page where the admin can input the new value, for all languages. 
+
+Once edited, the changes are saved to the database for persistence. All translations on the database have priority over the ones in the language files. This means that you can safely let your admin edit translations, in production. Your auto-deploys will continue working, because no files get edited, only DB entries.
+
+### Editable Columns
+
+// TODO: image here
+
+If you have the [Editable Columns](https://backpackforlaravel.com/products/editable-columns) package installed, the admin can directly edit translations within the List View. This provides an excellent UX - because they can translate everything much much faster, without having to switch pages.
+
 If you don't want that behavior you can disable it in the `config/backpack/language-manager.php` file by setting `use_editable_columns => false`. 
 If you don't find that file, see above the optional steps to publish the config files.
 
-Once edited, the changes are saved to the database for persistence. All translations on the database have priority over the ones in the language files.
+Once edited, the changes are saved to the database for persistence. All translations on the database have priority over the ones in the language files. This means that you can safely let your admin edit translations, in production. Your auto-deploys will continue working, because no files get edited, only DB entries.
 
 ## Security
 
@@ -89,6 +104,7 @@ If you discover any security related issues, please email cristian.tabacitu@back
 ## Credits
 
 - [Antonio Almeida](https://github.com/promatik)
+- [Pedro Martins](https://github.com/pxpm)
 - [Cristian Tabacitu](https://github.com/tabacitu)
 - [All Contributors][link-contributors]
 
