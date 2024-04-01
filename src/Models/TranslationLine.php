@@ -20,6 +20,7 @@ use Symfony\Component\Finder\SplFileInfo;
  * @property string $group
  * @property string $key
  * @property string $created_at
+ * @property string $group_key
  */
 class TranslationLine extends TranslationLineOriginal
 {

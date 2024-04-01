@@ -15,7 +15,7 @@ return [
     'database' => 'database',
     'file' => 'file',
 
-    'show-all-languages' => 'show all languages',
+    'show_all_languages' => 'show all languages',
     'revert' => 'revert',
 
     'revert_confirm' => 'Are you sure you want to revert this translation?',

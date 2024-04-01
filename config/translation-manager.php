@@ -25,4 +25,7 @@ return [
     // Display source column
     // Adds a column to the translation lines table to show the source, either database or file
     'display_source' => false,
+
+    // If you have Editable Columns addon, Backpack will use it in the translations table.
+    'use_editable_columns' => true,
 ];

@@ -2,6 +2,8 @@
 
 namespace Backpack\TranslationManager\Models;
 
+use Spatie\TranslationLoader\LanguageLine;
+
 /**
  * @property int $id
  * @property string $group
@@ -10,7 +12,7 @@ namespace Backpack\TranslationManager\Models;
  * @property string $created_at
  * @property string $updated_at
  */
-class TranslationLineOriginal extends TranslationLine
+class TranslationLineOriginal extends LanguageLine
 {
     protected $table = 'language_lines';
 }

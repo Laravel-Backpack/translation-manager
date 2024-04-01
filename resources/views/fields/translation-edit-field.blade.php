@@ -30,7 +30,7 @@
             <label class="form-switch switch switch-sm switch-label switch-pill switch-primary mb-0">
                 <input type="checkbox" class="switch-input form-check-input" id="switch_translation_edit_field">
             </label>
-            <label class="font-weight-normal mb-0 ml-2" for="switch_translation_edit_field">{{ ucfirst(__('backpack.translation-manager::translation_manager.show-all-translations')) }}</label>
+            <label class="font-weight-normal mb-0 ml-2" for="switch_translation_edit_field">{{ ucfirst(__('backpack.translation-manager::translation_manager.show_all_languages')) }}</label>
         </div>
     </div>
 

@@ -15,7 +15,7 @@ return [
     'database' => 'base de dados',
     'file' => 'ficheiro',
 
-    'show-all-languages' => 'mostrar todos os idiomas',
+    'show_all_languages' => 'mostrar todos os idiomas',
     'revert' => 'reverter',
 
     'revert_confirm' => 'Tem a certeza que quer reverter esta tradução?',
