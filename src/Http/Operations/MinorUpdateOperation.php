@@ -1,6 +1,6 @@
 <?php
 
-namespace Backpack\LanguageManager\Http\Operations;
+namespace Backpack\TranslationManager\Http\Operations;
 
 if (class_exists(\Backpack\EditableColumns\AddonServiceProvider::class)) {
     trait MinorUpdateOperation

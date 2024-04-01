@@ -1,9 +1,9 @@
 <?php
 
-namespace Backpack\LanguageManager\Models;
+namespace Backpack\TranslationManager\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Backpack\LanguageManager\Models\LanguageLineOriginal;
+use Backpack\TranslationManager\Models\TranslationLineOriginal;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use ReflectionClass;
@@ -21,7 +21,7 @@ use Symfony\Component\Finder\SplFileInfo;
  * @property string $key
  * @property string $created_at
  */
-class LanguageLine extends LanguageLineOriginal
+class TranslationLine extends TranslationLineOriginal
 {
     use CrudTrait;
     use Sushi;
@@ -58,8 +58,8 @@ class LanguageLine extends LanguageLineOriginal
     public function getRows(): array
     {
         // database entries
-        $entries = LanguageLineOriginal::all()
-            ->mapWithKeys(fn(LanguageLineOriginal $item) => ["$item->group.$item->key" => [
+        $entries = TranslationLineOriginal::all()
+            ->mapWithKeys(fn(TranslationLineOriginal $item) => ["$item->group.$item->key" => [
                 'id' => "$item->group.$item->key",
                 'id_database' => $item->id,
                 'database' => true,
@@ -70,9 +70,9 @@ class LanguageLine extends LanguageLineOriginal
             ]])
             ->toArray();
 
-        $filePaths = config('backpack.language-manager.file_paths', []);
+        $filePaths = config('backpack.translation-manager.file_paths', []);
 
-        if (config('backpack.language-manager.load_all_registered_translation_paths', true)) {
+        if (config('backpack.translation-manager.load_all_registered_translation_paths', true)) {
             $reflectionClass = new ReflectionClass(TranslationLoaderManager::class);
             $hints = $reflectionClass->getProperty('hints')->getValue(app()['translation.loader']);
             $filePaths = array_merge($filePaths, array_values($hints));
@@ -119,9 +119,9 @@ class LanguageLine extends LanguageLineOriginal
     {
         parent::boot();
 
-        static::saved(function (LanguageLine $entry): void {
+        static::saved(function (TranslationLine $entry): void {
             if (! $entry->database) {
-                $entry = LanguageLineOriginal::create([
+                $entry = TranslationLineOriginal::create([
                     'group' => $entry->group,
                     'key' => $entry->key,
                     'text' => $entry->text,
@@ -129,8 +129,8 @@ class LanguageLine extends LanguageLineOriginal
             }
         });
 
-        static::deleted(function (LanguageLine $entry): void {
-            LanguageLineOriginal::findOrFail($entry->id_database)->delete();
+        static::deleted(function (TranslationLine $entry): void {
+            TranslationLineOriginal::findOrFail($entry->id_database)->delete();
         });
     }
 }

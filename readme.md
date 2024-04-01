@@ -1,10 +1,10 @@
-# Language Manager
+# Translation Manager
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![The Whole Fruit Manifesto](https://img.shields.io/badge/writing%20standard-the%20whole%20fruit-brightgreen)](https://github.com/the-whole-fruit/manifesto)
 
-Language Manager provides a user interface for Backpack to manage translations. It allows you to:
+Translation Manager provides a user interface for Backpack to manage translations. It allows you to:
 
 - View a list of all translations present in your application's language files (including vendor translations).
 - Edit translations directly within the list.
@@ -19,7 +19,7 @@ This package leverages the functionalities of `spatie/laravel-translation-loader
 
 ## Demo
 
-Try it right now, edit some translations in [our online demo](https://demo.backpackforlaravel.com/admin/language-manager).  
+Try it right now, edit some translations in [our online demo](https://demo.backpackforlaravel.com/admin/translation-manager).  
 
 ## Installation
 
@@ -28,13 +28,13 @@ In your Laravel + Backpack project, install this package:
 1) Install the package using Composer:
 
 ```bash
-composer require backpack/language-manager
+composer require backpack/translation-manager
 ```
 
 2) Add menu items to `sidebar_content.blade.php`:
 
 ```bash
-php artisan backpack:add-menu-content "<x-backpack::menu-item title=\"Language Managers\" icon=\"la la-stream\" :link=\"backpack_url('language-manager')\" />"
+php artisan backpack:add-menu-content "<x-backpack::menu-item title=\"Translation Managers\" icon=\"la la-stream\" :link=\"backpack_url('translation-manager')\" />"
 ```
 
 3) Optionally, publish the config file:
@@ -96,9 +96,9 @@ If you discover any security related issues, please email cristian.tabacitu@back
 
 This project was released under MIT License, so you can install it on top of any Backpack & Laravel project. Please see the [license file](license.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/backpack/language-manager.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/backpack/language-manager.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/backpack/translation-manager.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/backpack/translation-manager.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/backpack/language-manager
-[link-downloads]: https://packagist.org/packages/backpack/language-manager
+[link-packagist]: https://packagist.org/packages/backpack/translation-manager
+[link-downloads]: https://packagist.org/packages/backpack/translation-manager
 [link-contributors]: ../../contributors

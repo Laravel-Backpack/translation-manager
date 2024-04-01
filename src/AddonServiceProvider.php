@@ -1,8 +1,8 @@
 <?php
 
-namespace Backpack\LanguageManager;
+namespace Backpack\TranslationManager;
 
-use Backpack\LanguageManager\AutomaticServiceProvider;
+use Backpack\TranslationManager\AutomaticServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class AddonServiceProvider extends ServiceProvider
@@ -10,6 +10,6 @@ class AddonServiceProvider extends ServiceProvider
     use AutomaticServiceProvider;
 
     protected $vendorName = 'backpack';
-    protected $packageName = 'language-manager';
+    protected $packageName = 'translation-manager';
     protected $commands = [];
 }

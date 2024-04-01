@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'language_line' => 'language line',
-    'language_lines' => 'language lines',
+    'translation_line' => 'translation line',
+    'translation_lines' => 'translation lines',
 
     'group' => 'group',
     'key' => 'key',

@@ -12,10 +12,10 @@ return [
         lang_path(),
     ],
 
-    // Allow create new language lines
+    // Allow create new translation lines
     'create' => false,
 
-    // This will limit the available groups when creating a new language line
+    // This will limit the available groups when creating a new translation line
     // If you want to allow all groups, just leave it empty
     // It's only applied if create is set to true
     'groups' => [
@@ -23,6 +23,6 @@ return [
     ],
 
     // Display source column
-    // Adds a column to the language lines table to show the source, either database or file
+    // Adds a column to the translation lines table to show the source, either database or file
     'display_source' => false,
 ];

@@ -2,7 +2,7 @@
     $locales = config('backpack.crud.locales');
 @endphp
 
-<div language-edit-field data-init-function="bpFieldInitLanguageEditField" class="form-group col-sm-12 mb-3">
+<div translation-edit-field data-init-function="bpFieldInitTranslationEditField" class="form-group col-sm-12 mb-3">
     <label>{{ $label }}</label>
 
     <div class="align-items-center justify-content-between d-flex mb-2 w-100">
@@ -16,7 +16,7 @@
                 </div>
             </label>
 
-            {{-- Language Switcher --}}
+            {{-- Translation Switcher --}}
             <select 
                 class="form-select">
                 @foreach($locales as $locale => $name)
@@ -28,13 +28,13 @@
         {{-- Toggler --}}
         <div class="d-inline-flex align-items-center">
             <label class="form-switch switch switch-sm switch-label switch-pill switch-primary mb-0">
-                <input type="checkbox" class="switch-input form-check-input" id="switch_language_edit_field">
+                <input type="checkbox" class="switch-input form-check-input" id="switch_translation_edit_field">
             </label>
-            <label class="font-weight-normal mb-0 ml-2" for="switch_language_edit_field">{{ ucfirst(__('backpack.language-manager::language_manager.show-all-languages')) }}</label>
+            <label class="font-weight-normal mb-0 ml-2" for="switch_translation_edit_field">{{ ucfirst(__('backpack.translation-manager::translation_manager.show-all-translations')) }}</label>
         </div>
     </div>
 
-    {{-- Language inputs --}}
+    {{-- Translation inputs --}}
     <div inputs>
         @foreach($locales as $locale => $name)
             <div class="d-none" locale="{{ $locale }}">
@@ -51,20 +51,20 @@
 </div>
 
 @push('crud_fields_styles')
-    @bassetBlock('backpack/language-manager/fields/language-edit.css')
+    @bassetBlock('backpack/translation-manager/fields/translation-edit.css')
     <style>
-        [language-edit-field] [flags] {
+        [translation-edit-field] [flags] {
             width: 1.5rem;
             height: 1.25rem;
         }
-        [language-edit-field] [inputs] svg {
+        [translation-edit-field] [inputs] svg {
             width: 1.8rem;
         }
-        [language-edit-field].show-all-languages div[locale],
-        [language-edit-field].show-all-languages div[locale] svg {
+        [translation-edit-field].show-all-languages div[locale],
+        [translation-edit-field].show-all-languages div[locale] svg {
             display: block !important;
         }
-        [language-edit-field].show-all-languages [switcher] {
+        [translation-edit-field].show-all-languages [switcher] {
             opacity: 0;
         }
     </style>
@@ -72,9 +72,9 @@
 @endpush
 
 @push('crud_fields_scripts')
-    @bassetBlock('backpack/language-manager/fields/language-edit.js')
+    @bassetBlock('backpack/translation-manager/fields/translation-edit.js')
     <script>
-        function bpFieldInitLanguageEditField(elem) {
+        function bpFieldInitTranslationEditField(elem) {
             let element = elem[0];
             let select = element.querySelector('[switcher] select');
             let flags = element.querySelector('[flags]');

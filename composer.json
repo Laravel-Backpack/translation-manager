@@ -1,6 +1,6 @@
 {
-    "name": "backpack/language-manager",
-    "description": "Language Manager for Backpack",
+    "name": "backpack/translation-manager",
+    "description": "Translation Manager for Backpack",
     "license": "MIT",
     "authors": [
         {
@@ -14,9 +14,9 @@
             "homepage": "https://backpackforlaravel.com"
         }
     ],
-    "homepage": "https://github.com/backpack/language-manager",
+    "homepage": "https://github.com/backpack/translation-manager",
     "keywords": [
-        "Laravel", "Backpack", "Backpack for Laravel", "Backpack Addon", "LanguageManager"
+        "Laravel", "Backpack", "Backpack for Laravel", "Backpack Addon", "TranslationManager"
     ],
     "require": {
         "backpack/crud": "^6.7",
@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Backpack\\LanguageManager\\": "src/"
+            "Backpack\\TranslationManager\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Backpack\\LanguageManager\\Tests\\": "tests"
+            "Backpack\\TranslationManager\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -48,7 +48,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Backpack\\LanguageManager\\AddonServiceProvider"
+                "Backpack\\TranslationManager\\AddonServiceProvider"
             ]
         }
     }

@@ -2,25 +2,25 @@
     <span onclick="revertEntry(this)" data-route="{{ url($crud->route.'/'.$entry->getKey()) }}" class="btn btn-sm btn-link" data-button-type="revert">
         <span>
             <i class="la la-undo"></i>
-            {{ ucfirst(trans('backpack.language-manager::language_manager.revert')) }}
+            {{ ucfirst(trans('backpack.translation-manager::translation_manager.revert')) }}
         </span>
     </span>
 @endif
 
 @push('after_scripts') @if (request()->ajax()) @endpush @endif
-@bassetBlock('backpack/language-manager/buttons/revert-button-'.app()->getLocale().'.js')
+@bassetBlock('backpack/translation-manager/buttons/revert-button-'.app()->getLocale().'.js')
 <script>
     if (typeof revertEntry !== 'function') {
         function revertEntry(button) {
             let trans = {
                 warning: '{!! addslashes(ucfirst(trans("backpack::base.warning"))) !!}',
                 cancel: '{!! addslashes(ucfirst(trans("backpack::crud.cancel"))) !!}',
-                revert: '{!! addslashes(ucfirst(trans("backpack.language-manager::language_manager.revert"))) !!}',
-                revert_confirm: '{!! addslashes(trans("backpack.language-manager::language_manager.revert_confirm")) !!}',
-                revert_confirmation_title: '{!! addslashes(trans("backpack.language-manager::language_manager.revert_confirmation_title")) !!}',
-                revert_confirmation_message: '{!! addslashes(trans("backpack.language-manager::language_manager.revert_confirmation_message")) !!}',
-                revert_confirmation_not_title: '{!! addslashes(trans("backpack.language-manager::language_manager.revert_confirmation_not_title")) !!}',
-                revert_confirmation_not_message: '{!! addslashes(trans("backpack.language-manager::language_manager.revert_confirmation_not_message")) !!}',
+                revert: '{!! addslashes(ucfirst(trans("backpack.translation-manager::translation_manager.revert"))) !!}',
+                revert_confirm: '{!! addslashes(trans("backpack.translation-manager::translation_manager.revert_confirm")) !!}',
+                revert_confirmation_title: '{!! addslashes(trans("backpack.translation-manager::translation_manager.revert_confirmation_title")) !!}',
+                revert_confirmation_message: '{!! addslashes(trans("backpack.translation-manager::translation_manager.revert_confirmation_message")) !!}',
+                revert_confirmation_not_title: '{!! addslashes(trans("backpack.translation-manager::translation_manager.revert_confirmation_not_title")) !!}',
+                revert_confirmation_not_message: '{!! addslashes(trans("backpack.translation-manager::translation_manager.revert_confirmation_not_message")) !!}',
             };
 
             swal({

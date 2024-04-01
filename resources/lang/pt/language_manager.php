@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'language_line' => 'tradução',
-    'language_lines' => 'traduções',
+    'translation_line' => 'tradução',
+    'translation_lines' => 'traduções',
 
     'group' => 'grupo',
     'key' => 'chave',
