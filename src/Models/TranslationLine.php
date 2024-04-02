@@ -46,6 +46,20 @@ class TranslationLine extends TranslationLineOriginal
     ];
 
     /**
+     * The model table schema.
+     * Used to handle empty datasets
+     */
+    protected $schema = [
+        'id' => 'string',
+        'id_database' => 'integer',
+        'database' => 'boolean',
+        'group' => 'string',
+        'key' => 'string',
+        'text' => 'string',
+        'created_at' => 'date',
+    ];
+
+    /**
      * Group key accessor.
      */
     public function getGroupKeyAttribute(): string
