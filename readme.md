@@ -93,8 +93,6 @@ If you have the [Editable Columns](https://backpackforlaravel.com/products/edita
 If you don't want that behavior you can disable it in the `config/backpack/translation-manager.php` file by setting `use_editable_columns => false`. 
 If you don't find that file, see above the optional steps to publish the config files.
 
-Once edited, the changes are saved to the database for persistence. All translations on the database have priority over the ones in the language files. This means that you can safely let your admin edit translations, in production. Your auto-deploys will continue working, because no files get edited, only DB entries.
-
 ## Security
 
 If you discover any security related issues, please email cristian.tabacitu@backpackforlaravel.com instead of using the issue tracker.
