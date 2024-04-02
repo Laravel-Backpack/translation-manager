@@ -1,1 +1,1 @@
-@include('backpack.language-manager::columns.language-preview-table')
+@include('backpack.translation-manager::columns.translation-preview-table')

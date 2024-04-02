@@ -1,6 +1,6 @@
 <?php
 
-namespace Backpack\LanguageManager\Models;
+namespace Backpack\TranslationManager\Models;
 
 use Spatie\TranslationLoader\LanguageLine;
 
@@ -12,7 +12,7 @@ use Spatie\TranslationLoader\LanguageLine;
  * @property string $created_at
  * @property string $updated_at
  */
-class LanguageLineOriginal extends LanguageLine
+class TranslationLineOriginal extends LanguageLine
 {
     protected $table = 'language_lines';
 }

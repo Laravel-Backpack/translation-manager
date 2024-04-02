@@ -1,9 +1,9 @@
 # Contributing
 
 Contributions are welcome and will be fully credited:
-- code contributions are accepted via Pull Requests to [this Github repo](https://github.com/backpack/language-manager);
+- code contributions are accepted via Pull Requests to [this Github repo](https://github.com/backpack/translation-manager);
 - financial contributions are usually in the form of [donations](), [projects]() or [jobs](); 
-- documentation contributions are accepted via Pull Requests to [this Github repo](https://github.com/backpack/language-manager);
+- documentation contributions are accepted via Pull Requests to [this Github repo](https://github.com/backpack/translation-manager);
 - other contributions are most likely welcome in the way you see fit;
 
 # Things you could do

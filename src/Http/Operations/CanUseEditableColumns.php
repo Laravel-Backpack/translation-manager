@@ -1,9 +1,9 @@
 <?php
 
-namespace Backpack\LanguageManager\Http\Operations;
+namespace Backpack\TranslationManager\Http\Operations;
 
-use Backpack\LanguageManager\Models\LanguageLine;
-use Backpack\LanguageManager\Models\LanguageLineOriginal;
+use Backpack\TranslationManager\Models\TranslationLine;
+use Backpack\TranslationManager\Models\TranslationLineOriginal;
 use Illuminate\Support\Facades\App;
 
 if (class_exists(\Backpack\EditableColumns\AddonServiceProvider::class)) {
@@ -16,7 +16,7 @@ if (class_exists(\Backpack\EditableColumns\AddonServiceProvider::class)) {
 
         private function editableColumnsEnabled(): bool
         {
-            return config('backpack.language-manager.use_editable_columns');
+            return config('backpack.translation-manager.use_editable_columns');
         }
 
         /**
@@ -33,13 +33,13 @@ if (class_exists(\Backpack\EditableColumns\AddonServiceProvider::class)) {
                 $text = $entry->text;
                 $text[$locale] = $request->value;
 
-                $entry = LanguageLineOriginal::find($entry->id_database);
+                $entry = TranslationLineOriginal::find($entry->id_database);
                 $entry->text = $text;
                 $entry->save();
             } else {
                 [$group, $key] = explode('.', $request->id);
 
-                LanguageLineOriginal::create([
+                TranslationLineOriginal::create([
                     'group' => $group,
                     'key' => $key,
                     'text' => [
@@ -49,7 +49,7 @@ if (class_exists(\Backpack\EditableColumns\AddonServiceProvider::class)) {
             }
 
             // fetch the entry from sushi
-            $entry = LanguageLine::find($request->id);
+            $entry = TranslationLine::find($request->id);
             $entry->database = true;
 
             return $entry;

@@ -1,41 +1,41 @@
 <?php
 
-namespace Backpack\LanguageManager\Http\Controllers;
+namespace Backpack\TranslationManager\Http\Controllers;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Backpack\LanguageManager\Models\LanguageLine;
+use Backpack\TranslationManager\Models\TranslationLine;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 /**
- * Class LanguageManagerCrudController
- * @package Backpack\LanguageManager\Http\Controllers
+ * Class TranslationManagerCrudController
+ * @package Backpack\TranslationManager\Http\Controllers
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class LanguageManagerCrudController extends CrudController
+class TranslationManagerCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\LanguageManager\Http\Operations\CanUseEditableColumns;
+    use \Backpack\TranslationManager\Http\Operations\CanUseEditableColumns;
 
     /**
      * Setup
      */
     public function setup(): void
     {
-        CRUD::setModel(LanguageLine::class);
-        CRUD::setRoute(config('backpack.base.route_prefix').'/language-manager');
-        CRUD::setEntityNameStrings(__('backpack.language-manager::language_manager.language_line'), __('backpack.language-manager::language_manager.language_lines'));
+        CRUD::setModel(TranslationLine::class);
+        CRUD::setRoute(config('backpack.base.route_prefix').'/translation-manager');
+        CRUD::setEntityNameStrings(__('backpack.translation-manager::translation_manager.translation_line'), __('backpack.translation-manager::translation_manager.translation_lines'));
 
         // access to edit and delete buttons
-        CRUD::setAccessCondition(['delete'], fn(LanguageLine $entry) => $entry->database);
+        CRUD::setAccessCondition(['delete'], fn(TranslationLine $entry) => $entry->database);
 
         // disable create
-        if (! config('backpack.language-manager.create', false)) {
+        if (! config('backpack.translation-manager.create', false)) {
             CRUD::denyAccess('create');
         }
     }
@@ -48,8 +48,8 @@ class LanguageManagerCrudController extends CrudController
         CRUD::addColumn([
             'name' => 'text',
             'type' => $this->editableColumnsEnabled() ? 'editable_text' : 'text',
-            'label' => ucfirst(__('backpack.language-manager::language_manager.text')),
-            'value' => fn(LanguageLine $entry): mixed => $entry->getTranslation(App::getLocale()),
+            'label' => ucfirst(__('backpack.translation-manager::translation_manager.text')),
+            'value' => fn(TranslationLine $entry): mixed => $entry->getTranslation(App::getLocale()),
             'searchLogic' => function (Builder $query, mixed $column, string $search): void {
                 $query->orWhere('search', 'like', '%'.Str::slug($search).'%');
             },
@@ -57,9 +57,9 @@ class LanguageManagerCrudController extends CrudController
 
         CRUD::addColumn([
             'name' => 'group_key',
-            'label' => ucfirst(__('backpack.language-manager::language_manager.key')),
+            'label' => ucfirst(__('backpack.translation-manager::translation_manager.key')),
             'type' => 'custom_html',
-            'value' => function (LanguageLine $entry): string {
+            'value' => function (TranslationLine $entry): string {
                 return '<span class="badge" title="'.$entry->group_key.'">'.Str::limit($entry->group_key, 50).'</span>';
             },
             'orderable' => true,
@@ -74,12 +74,12 @@ class LanguageManagerCrudController extends CrudController
             },
         ]);
 
-        if (config('backpack.language-manager.display_source', false)) {
+        if (config('backpack.translation-manager.display_source', false)) {
             CRUD::addColumn([
                 'name' => 'database',
-                'label' => ucfirst(__('backpack.language-manager::language_manager.source')),
+                'label' => ucfirst(__('backpack.translation-manager::translation_manager.source')),
                 'type' => 'custom_html',
-                'value' => function (LanguageLine $entry): string {
+                'value' => function (TranslationLine $entry): string {
                     $value = $entry->database ? 'database' : 'file';
                     return '<i class="las la-'.$value.'" title="'.$value.'"></i>';
                 },
@@ -92,7 +92,7 @@ class LanguageManagerCrudController extends CrudController
 
         // enable details row
         CRUD::enableDetailsRow();
-        CRUD::setDetailsRowView('backpack.language-manager::admin.details_row');
+        CRUD::setDetailsRowView('backpack.translation-manager::admin.details_row');
 
         // set default order
         CRUD::orderBy('group', 'asc')->orderBy('key', 'asc');
@@ -112,8 +112,8 @@ class LanguageManagerCrudController extends CrudController
         CRUD::removeColumn('text');
         CRUD::addColumn([
             'name' => 'text',
-            'type' => 'language-preview-table',
-            'label' => ucfirst(__('backpack.language-manager::language_manager.text')),
+            'type' => 'translation-preview-table',
+            'label' => ucfirst(__('backpack.translation-manager::translation_manager.text')),
         ]);
     }
 
@@ -122,11 +122,11 @@ class LanguageManagerCrudController extends CrudController
      */
     protected function setupCreateOperation(): void
     {
-        $groups = config('backpack.language-manager.groups', []);
+        $groups = config('backpack.translation-manager.groups', []);
 
         CRUD::addField([
             'name' => 'group',
-            'label' => ucfirst(__('backpack.language-manager::language_manager.group')),
+            'label' => ucfirst(__('backpack.translation-manager::translation_manager.group')),
             'wrapper' => ['class' => 'form-group col-md-4'],
             'type' => empty($groups) ? 'text' : 'select_from_array',
             'options' => $groups,
@@ -134,15 +134,15 @@ class LanguageManagerCrudController extends CrudController
 
         CRUD::addField([
             'name' => 'key',
-            'label' => ucfirst(__('backpack.language-manager::language_manager.key')),
+            'label' => ucfirst(__('backpack.translation-manager::translation_manager.key')),
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-8'],
         ]);
 
         CRUD::addField([
             'name' => 'text',
-            'label' => ucfirst(__('backpack.language-manager::language_manager.text')),
-            'type' => 'language-edit-field',
+            'label' => ucfirst(__('backpack.translation-manager::translation_manager.text')),
+            'type' => 'translation-edit-field',
         ]);
 
         CRUD::removeSaveAction('save_and_edit');
@@ -169,9 +169,9 @@ class LanguageManagerCrudController extends CrudController
         CRUD::addFilter([
             'name' => 'group',
             'type' => 'select2_multiple',
-            'label' => ucfirst(__('backpack.language-manager::language_manager.group')),
+            'label' => ucfirst(__('backpack.translation-manager::translation_manager.group')),
         ], function (): array {
-            return LanguageLine::select('group')
+            return TranslationLine::select('group')
                 ->distinct()
                 ->pluck('group', 'group')
                 ->toArray();
@@ -183,10 +183,10 @@ class LanguageManagerCrudController extends CrudController
         CRUD::addFilter([
             'name' => 'source',
             'type' => 'select2',
-            'label' => ucfirst(__('backpack.language-manager::language_manager.source')),
+            'label' => ucfirst(__('backpack.translation-manager::translation_manager.source')),
         ], [
-            'database' => ucfirst(__('backpack.language-manager::language_manager.database')),
-            'file' => ucfirst(__('backpack.language-manager::language_manager.file')),
+            'database' => ucfirst(__('backpack.translation-manager::translation_manager.database')),
+            'file' => ucfirst(__('backpack.translation-manager::translation_manager.file')),
         ], function (string $option): void {
             CRUD::addClause('where', 'database', $option === 'database');
         });
