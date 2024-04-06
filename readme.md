@@ -14,8 +14,7 @@ This package uses the battle tested [spatie/laravel-translation-loader](https://
 
 ## Preview
 
-![](https://private-user-images.githubusercontent.com/1032474/318216127-f65a24ea-473d-4fec-8ffc-b8137bcb1b9f.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTIwNjM1MTEsIm5iZiI6MTcxMjA2MzIxMSwicGF0aCI6Ii8xMDMyNDc0LzMxODIxNjEyNy1mNjVhMjRlYS00NzNkLTRmZWMtOGZmYy1iODEzN2JjYjFiOWYucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDQwMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA0MDJUMTMwNjUxWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YjU5YWE4MzAzZjFkODIwYjFkOWMwZGUzZDY0YzM0MjEzNjU0OTU2YTE2NGQ4NWQ5OTVlNjU4OWZmMzk3MWI0YyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.BgcKZ2Ug4Co-meK972MGkQRqt9PRPPy1wDe57NT0X5A)
-
+![lm_list_view](https://github.com/Laravel-Backpack/language-manager/assets/1032474/a60b3204-e3f7-48f2-bb83-e300b01da481)
 
 ## Demo
 
@@ -70,7 +69,7 @@ php artisan vendor:publish --provider="Backpack\TranslationManager\AddonServiceP
 
 ### List View:
 
-![](https://private-user-images.githubusercontent.com/1032474/318216128-a60b3204-e3f7-48f2-bb83-e300b01da481.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTIwNjM1MTEsIm5iZiI6MTcxMjA2MzIxMSwicGF0aCI6Ii8xMDMyNDc0LzMxODIxNjEyOC1hNjBiMzIwNC1lM2Y3LTQ4ZjItYmI4My1lMzAwYjAxZGE0ODEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDQwMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA0MDJUMTMwNjUxWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MTNiODE4OGVhMzk2ZjAyMGU0MDMxNjA4ZWJiYmE2MjliNjJlZTFjMWY2MWY0MjRkYzJkZmJhYTVjY2Q4ZDMxMyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.nrbE5bbZIKpQsthbc8LMrzGR3Z24K8zPrx5g2dHwsw0)
+![lm_list_view2](https://github.com/Laravel-Backpack/language-manager/assets/1032474/f65a24ea-473d-4fec-8ffc-b8137bcb1b9f)
 
 The list view displays a comprehensive list of all translations within your application. By default, all translations including vendor translations are displayed in the list view. If you don't want to see vendor translations, you can set the config option `load_all_registered_translation_paths` to `false` in `config/backpack/translation-manager.php`.
 
@@ -78,7 +77,7 @@ Additionally, if you have [Backpack Pro](https://backpackforlaravel.com/products
 
 ### Edit View
 
-![](https://private-user-images.githubusercontent.com/1032474/318216125-13fa216a-24e0-4a82-b949-d24124c8ee2a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTIwNjM1MTEsIm5iZiI6MTcxMjA2MzIxMSwicGF0aCI6Ii8xMDMyNDc0LzMxODIxNjEyNS0xM2ZhMjE2YS0yNGUwLTRhODItYjk0OS1kMjQxMjRjOGVlMmEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDQwMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA0MDJUMTMwNjUxWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MDFkMDIwYmRhOThiM2RjNGZjZTc5NGVkMWQ5Nzc3YjVhZDhhZmI4YjIyMTg5MzZjM2Q0ZDlhNGViZTQ4NzgzNiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.I5svlxban472nVMxapcqy11XmnzFZMs2jGKnVZO4T3g)
+![lm_edit_view](https://github.com/Laravel-Backpack/language-manager/assets/1032474/13fa216a-24e0-4a82-b949-d24124c8ee2a)
 
 Any translation can be edited by clicking the Edit button. It will open a page where the admin can input the new value, for all languages. 
 
@@ -86,7 +85,7 @@ Once edited, the changes are saved to the database for persistence. All translat
 
 ### Editable Columns
 
-![](https://private-user-images.githubusercontent.com/1032474/318216122-88996f7c-6807-4c54-a3f8-10ab18afaa24.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTIwNjM1MTEsIm5iZiI6MTcxMjA2MzIxMSwicGF0aCI6Ii8xMDMyNDc0LzMxODIxNjEyMi04ODk5NmY3Yy02ODA3LTRjNTQtYTNmOC0xMGFiMThhZmFhMjQucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDQwMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA0MDJUMTMwNjUxWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9N2ExN2NjNjhkNGNiMzNhNmRjZGE0MjlmNmM0Yzc2ZjBmMGNkYmE2NmNiNjhlMTBmMzZjYjZiZTg1ODQ0Mzg2MSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.AGTc17YEEY9ReMRS7tanKOI5YUTnGDGxjtO1MsD2EfE)
+![lm_editable_columns_view](https://github.com/Laravel-Backpack/language-manager/assets/1032474/88996f7c-6807-4c54-a3f8-10ab18afaa24)
 
 If you have the [Editable Columns](https://backpackforlaravel.com/products/editable-columns) package installed, the admin can directly edit translations within the List View. This provides an excellent UX - because they can translate everything much much faster, without having to switch pages.
 
