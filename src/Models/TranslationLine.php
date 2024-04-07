@@ -130,7 +130,7 @@ class TranslationLine extends TranslationLineOriginal
     /**
      * Boot the model.
      */
-    public static function boot()
+    public static function boot(): void
     {
         parent::boot();
 

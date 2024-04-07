@@ -29,8 +29,6 @@ trait AutomaticServiceProvider
 
     /**
      * Boot method may be overrided by AddonServiceProvider
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -39,8 +37,6 @@ trait AutomaticServiceProvider
 
     /**
      * Perform post-registration booting of services.
-     *
-     * @return void
      */
     public function autoboot(): void
     {
@@ -86,8 +82,6 @@ trait AutomaticServiceProvider
 
     /**
      * Register any package services.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -98,8 +92,6 @@ trait AutomaticServiceProvider
 
     /**
      * Console-specific booting.
-     *
-     * @return void
      */
     protected function bootForConsole(): void
     {
@@ -229,7 +221,7 @@ trait AutomaticServiceProvider
 
         // check if directory has files
         foreach (scandir($this->path.'/'.$name) as $file) {
-            if ($file != '.' && $file != '..' && $file != '.gitkeep') {
+            if ($file !== '.' && $file !== '..' && $file !== '.gitkeep') {
                 return true;
             }
         }

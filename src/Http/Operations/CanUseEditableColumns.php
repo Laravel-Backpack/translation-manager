@@ -11,8 +11,8 @@ if (class_exists(\Backpack\EditableColumns\AddonServiceProvider::class)) {
     {
         use \Backpack\EditableColumns\Http\Controllers\Operations\MinorUpdateOperation;
 
-        private $minorUpdateEntry = null;
-        private $minorUpdateRequest = null;
+        private $minorUpdateEntry;
+        private $minorUpdateRequest;
 
         private function editableColumnsEnabled(): bool
         {
@@ -37,7 +37,7 @@ if (class_exists(\Backpack\EditableColumns\AddonServiceProvider::class)) {
                 $entry->text = $text;
                 $entry->save();
             } else {
-                [$group, $key] = explode('.', $request->id);
+                [$group, $key] = explode('.', (string) $request->id);
 
                 TranslationLineOriginal::create([
                     'group' => $group,

@@ -19,6 +19,7 @@
         "Laravel", "Backpack", "Backpack for Laravel", "Backpack Addon", "TranslationManager"
     ],
     "require": {
+        "php": "^8.2|^8.3",
         "backpack/crud": "^6.7",
         "spatie/laravel-translation-loader": "^2.8",
         "outhebox/blade-flags": "^1.2",
@@ -27,7 +28,8 @@
     "require-dev": {
         "phpunit/phpunit": "~10.0|~11.0",
         "orchestra/testbench": "~8.0|~9.0",
-        "larastan/larastan": "^2.9"
+        "larastan/larastan": "^2.9",
+        "rector/rector": "*"
     },
     "autoload": {
         "psr-4": {
@@ -41,7 +43,14 @@
     },
     "scripts": {
         "analyse": [
+            "vendor/bin/phpstan analyse",
+            "vendor/bin/rector --dry-run"
+        ],
+        "analyse-stan": [
             "vendor/bin/phpstan analyse"
+        ],
+        "analyse-rector": [
+            "vendor/bin/rector --dry-run"
         ],
         "test": "vendor/bin/phpunit --testdox"
     },

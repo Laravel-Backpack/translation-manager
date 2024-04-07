@@ -36,5 +36,8 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
           composer install --no-interaction --no-progress
 
-      - name: PHP Stan Analyse
-        run: composer analyse
+      - name: "PHP Stan Analyse"
+        run: "composer analyse-stan"
+
+      - name: "PHP Rector Analyse"
+        run: "composer analyse-rector"

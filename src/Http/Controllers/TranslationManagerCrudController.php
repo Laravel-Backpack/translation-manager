@@ -59,15 +59,11 @@ class TranslationManagerCrudController extends CrudController
             'name' => 'group_key',
             'label' => ucfirst(__('backpack.translation-manager::translation_manager.key')),
             'type' => 'custom_html',
-            'value' => function (TranslationLine $entry): string {
-                return '<span class="badge" title="'.$entry->group_key.'">'.Str::limit($entry->group_key, 50).'</span>';
-            },
+            'value' => fn(TranslationLine $entry): string => '<span class="badge" title="'.$entry->group_key.'">'.Str::limit($entry->group_key, 50).'</span>',
             'orderable' => true,
-            'orderLogic' => function (Builder $query, mixed $column, mixed $columnDirection): Builder {
-                return $query
-                    ->orderBy('group', $columnDirection)
-                    ->orderBy('key', $columnDirection);
-            },
+            'orderLogic' => fn(Builder $query, mixed $column, mixed $columnDirection): Builder => $query
+                ->orderBy('group', $columnDirection)
+                ->orderBy('key', $columnDirection),
             'searchLogic' => function (Builder $query, mixed $column, string $search): void {
                 $query->orWhere('group', 'like', "%$search%")
                     ->orWhere('key', 'like', "%$search%");
@@ -170,12 +166,10 @@ class TranslationManagerCrudController extends CrudController
             'name' => 'group',
             'type' => 'select2_multiple',
             'label' => ucfirst(__('backpack.translation-manager::translation_manager.group')),
-        ], function (): array {
-            return TranslationLine::select('group')
-                ->distinct()
-                ->pluck('group', 'group')
-                ->toArray();
-        }, function (string $options): void {
+        ], fn(): array => TranslationLine::select('group')
+            ->distinct()
+            ->pluck('group', 'group')
+            ->toArray(), function (string $options): void {
             CRUD::addClause('whereIn', 'group', json_decode($options));
         });
 
