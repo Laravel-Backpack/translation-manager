@@ -27,8 +27,22 @@
                 title: trans.warning,
                 text: trans.revert_confirm,
                 icon: 'warning',
-                buttons: [trans.cancel, trans.revert],
-                dangerMode: true,
+                buttons: {
+		  	cancel: {
+				text: trans.cancel,
+				value: null,
+				visible: true,
+				className: "bg-secondary",
+				closeModal: true,
+			},
+			delete: {
+				text: trans.revert,
+				value: true,
+				visible: true,
+				className: "bg-danger",
+				},
+			},
+		    dangerMode: true,
             }).then((value) => {
                 if (! value) return;
                 
