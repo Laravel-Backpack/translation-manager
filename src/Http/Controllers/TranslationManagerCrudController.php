@@ -125,24 +125,30 @@ class TranslationManagerCrudController extends CrudController
         $groups = config('backpack.translation-manager.groups', []);
 
         CRUD::addField([
-            'name' => 'group',
-            'label' => ucfirst(__('backpack.translation-manager::translation_manager.group')),
-            'wrapper' => ['class' => 'form-group col-md-4'],
-            'type' => empty($groups) ? 'text' : 'select_from_array',
-            'options' => $groups,
+            'name'       => 'group',
+            'label'      => ucfirst(__('backpack.translation-manager::translation_manager.group')),
+            'wrapper'    => ['class' => 'form-group col-md-4'],
+            'type'       => empty($groups) ? 'text' : 'select_from_array',
+            'options'    => $groups,
+            'attributes' => [
+                'disabled' => 'disabled',
+            ],
         ]);
 
         CRUD::addField([
-            'name' => 'key',
-            'label' => ucfirst(__('backpack.translation-manager::translation_manager.key')),
-            'type' => 'text',
-            'wrapper' => ['class' => 'form-group col-md-8'],
+            'name'       => 'key',
+            'label'      => ucfirst(__('backpack.translation-manager::translation_manager.key')),
+            'type'       => 'text',
+            'wrapper'    => ['class' => 'form-group col-md-8'],
+            'attributes' => [
+                'disabled' => 'disabled',
+            ],
         ]);
 
         CRUD::addField([
-            'name' => 'text',
+            'name'  => 'text',
             'label' => ucfirst(__('backpack.translation-manager::translation_manager.text')),
-            'type' => 'translation-edit-field',
+            'type'  => 'translation-edit-field',
         ]);
 
         CRUD::removeSaveAction('save_and_edit');
