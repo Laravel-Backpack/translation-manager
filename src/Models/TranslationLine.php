@@ -136,9 +136,13 @@ class TranslationLine extends TranslationLineOriginal
 
         static::saved(function (TranslationLine $entry): void {
             if (! $entry->database) {
-                $entry = TranslationLineOriginal::create([
+                TranslationLineOriginal::create([
                     'group' => $entry->group,
-                    'key' => $entry->key,
+                    'key'   => $entry->key,
+                    'text'  => $entry->text,
+                ]);
+            } else {
+                TranslationLineOriginal::where('id', $entry->id_database)->update([
                     'text' => $entry->text,
                 ]);
             }
