@@ -9,11 +9,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
-/**
- * Class TranslationManagerCrudController
- * @package Backpack\TranslationManager\Http\Controllers
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
- */
 class TranslationManagerCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -32,7 +27,7 @@ class TranslationManagerCrudController extends CrudController
         CRUD::setEntityNameStrings(__('backpack.translation-manager::translation_manager.translation_line'), __('backpack.translation-manager::translation_manager.translation_lines'));
 
         // access to edit and delete buttons
-        CRUD::setAccessCondition(['delete'], fn(TranslationLine $entry) => $entry->database);
+        CRUD::setAccessCondition(['delete'], fn (TranslationLine $entry) => $entry->database);
 
         // disable create
         if (! config('backpack.translation-manager.create', false)) {
@@ -46,23 +41,23 @@ class TranslationManagerCrudController extends CrudController
     protected function setupListOperation(): void
     {
         CRUD::addColumn([
-            'name' => 'text',
-            'type' => $this->editableColumnsEnabled() ? 'editable_text' : 'text',
-            'label' => ucfirst(__('backpack.translation-manager::translation_manager.text')),
-            'value' => fn(TranslationLine $entry): mixed => $entry->getTranslation(App::getLocale()),
+            'name'        => 'text',
+            'type'        => $this->editableColumnsEnabled() ? 'editable_text' : 'text',
+            'label'       => ucfirst(__('backpack.translation-manager::translation_manager.text')),
+            'value'       => fn (TranslationLine $entry): mixed => $entry->getTranslation(App::getLocale()),
             'searchLogic' => function (Builder $query, mixed $column, string $search): void {
                 $query->orWhere('search', 'like', '%'.Str::slug($search).'%');
             },
         ]);
 
         CRUD::addColumn([
-            'name' => 'group_key',
+            'name'  => 'group_key',
             'label' => ucfirst(__('backpack.translation-manager::translation_manager.key')),
-            'type' => 'custom_html',
+            'type'  => 'custom_html',
             'value' => function (TranslationLine $entry): string {
                 return '<span class="badge" title="'.$entry->group_key.'">'.Str::limit($entry->group_key, 50).'</span>';
             },
-            'orderable' => true,
+            'orderable'  => true,
             'orderLogic' => function (Builder $query, mixed $column, mixed $columnDirection): Builder {
                 return $query
                     ->orderBy('group', $columnDirection)
@@ -76,11 +71,12 @@ class TranslationManagerCrudController extends CrudController
 
         if (config('backpack.translation-manager.display_source', false)) {
             CRUD::addColumn([
-                'name' => 'database',
+                'name'  => 'database',
                 'label' => ucfirst(__('backpack.translation-manager::translation_manager.source')),
-                'type' => 'custom_html',
+                'type'  => 'custom_html',
                 'value' => function (TranslationLine $entry): string {
                     $value = $entry->database ? 'database' : 'file';
+
                     return '<i class="las la-'.$value.'" title="'.$value.'"></i>';
                 },
             ]);
@@ -111,8 +107,8 @@ class TranslationManagerCrudController extends CrudController
 
         CRUD::removeColumn('text');
         CRUD::addColumn([
-            'name' => 'text',
-            'type' => 'translation-preview-table',
+            'name'  => 'text',
+            'type'  => 'translation-preview-table',
             'label' => ucfirst(__('backpack.translation-manager::translation_manager.text')),
         ]);
     }
@@ -173,8 +169,8 @@ class TranslationManagerCrudController extends CrudController
 
         // group filter
         CRUD::addFilter([
-            'name' => 'group',
-            'type' => 'select2_multiple',
+            'name'  => 'group',
+            'type'  => 'select2_multiple',
             'label' => ucfirst(__('backpack.translation-manager::translation_manager.group')),
         ], function (): array {
             return TranslationLine::select('group')
@@ -187,12 +183,12 @@ class TranslationManagerCrudController extends CrudController
 
         // database/file filter
         CRUD::addFilter([
-            'name' => 'source',
-            'type' => 'select2',
+            'name'  => 'source',
+            'type'  => 'select2',
             'label' => ucfirst(__('backpack.translation-manager::translation_manager.source')),
         ], [
             'database' => ucfirst(__('backpack.translation-manager::translation_manager.database')),
-            'file' => ucfirst(__('backpack.translation-manager::translation_manager.file')),
+            'file'     => ucfirst(__('backpack.translation-manager::translation_manager.file')),
         ], function (string $option): void {
             CRUD::addClause('where', 'database', $option === 'database');
         });
