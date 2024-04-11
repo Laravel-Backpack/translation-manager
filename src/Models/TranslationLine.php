@@ -3,7 +3,6 @@
 namespace Backpack\TranslationManager\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Backpack\TranslationManager\Models\TranslationLineOriginal;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use ReflectionClass;
@@ -16,7 +15,7 @@ use Symfony\Component\Finder\SplFileInfo;
  * @property int $id_database
  * @property array $text
  * @property string $search
- * @property boolean $database
+ * @property bool $database
  * @property string $group
  * @property string $key
  * @property string $created_at
@@ -41,7 +40,7 @@ class TranslationLine extends TranslationLineOriginal
      * The attributes that should be cast.
      */
     protected $casts = [
-        'text' => 'array',
+        'text'     => 'array',
         'database' => 'boolean',
     ];
 
@@ -50,13 +49,13 @@ class TranslationLine extends TranslationLineOriginal
      * Used to handle empty datasets
      */
     protected $schema = [
-        'id' => 'string',
+        'id'          => 'string',
         'id_database' => 'integer',
-        'database' => 'boolean',
-        'group' => 'string',
-        'key' => 'string',
-        'text' => 'string',
-        'created_at' => 'date',
+        'database'    => 'boolean',
+        'group'       => 'string',
+        'key'         => 'string',
+        'text'        => 'string',
+        'created_at'  => 'date',
     ];
 
     /**
@@ -74,14 +73,14 @@ class TranslationLine extends TranslationLineOriginal
     {
         // database entries
         $entries = TranslationLineOriginal::all()
-            ->mapWithKeys(fn(TranslationLineOriginal $item) => ["$item->group.$item->key" => [
-                'id' => "$item->group.$item->key",
+            ->mapWithKeys(fn (TranslationLineOriginal $item) => ["$item->group.$item->key" => [
+                'id'          => "$item->group.$item->key",
                 'id_database' => $item->id,
-                'database' => true,
-                'group' => $item->group,
-                'key' => $item->key,
-                'text' => array_filter($item->text ?? []),
-                'created_at' => $item->created_at,
+                'database'    => true,
+                'group'       => $item->group,
+                'key'         => $item->key,
+                'text'        => array_filter($item->text ?? []),
+                'created_at'  => $item->created_at,
             ]])
             ->toArray();
 
@@ -95,24 +94,24 @@ class TranslationLine extends TranslationLineOriginal
 
         // file entries
         collect($filePaths)
-            ->flatMap(fn(string $path) => File::allFiles($path))
-            ->filter(fn(SplFileInfo $file) => $file->getExtension() === 'php')
+            ->flatMap(fn (string $path) => File::allFiles($path))
+            ->filter(fn (SplFileInfo $file) => $file->getExtension() === 'php')
             ->each(function (SplFileInfo $file) use (&$entries) {
                 $group = Str::beforeLast($file->getFilename(), '.php');
                 $locale = Str::of($file->getPath())->afterLast('/')->afterLast('\\')->value();
 
                 collect(include $file)
                     ->dot()
-                    ->filter(fn($text): bool => is_string($text))
+                    ->filter(fn ($text): bool => is_string($text))
                     ->each(function (string $text, string $key) use ($group, $file, $locale, &$entries) {
                         $entries["$group.$key"] ??= [
-                            'id' => "$group.$key",
+                            'id'          => "$group.$key",
                             'id_database' => null,
-                            'database' => false,
-                            'group' => $group,
-                            'key' => $key,
-                            'text' => [],
-                            'created_at' => $file->getMTime(),
+                            'database'    => false,
+                            'group'       => $group,
+                            'key'         => $key,
+                            'text'        => [],
+                            'created_at'  => $file->getMTime(),
                         ];
                         $entries["$group.$key"]['text'][$locale] ??= $text;
                     });
