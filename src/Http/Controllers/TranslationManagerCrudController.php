@@ -23,14 +23,14 @@ class TranslationManagerCrudController extends CrudController
     public function setup(): void
     {
         CRUD::setModel(TranslationLine::class);
-        CRUD::setRoute(config('backpack.base.route_prefix').'/translation-manager');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/translation-manager');
         CRUD::setEntityNameStrings(__('backpack.translation-manager::translation_manager.translation_line'), __('backpack.translation-manager::translation_manager.translation_lines'));
 
         // access to edit and delete buttons
         CRUD::setAccessCondition(['delete'], fn (TranslationLine $entry) => $entry->database);
 
         // disable create
-        if (! config('backpack.translation-manager.create', false)) {
+        if (!config('backpack.translation-manager.create', false)) {
             CRUD::denyAccess('create');
         }
     }
@@ -46,7 +46,7 @@ class TranslationManagerCrudController extends CrudController
             'label'       => ucfirst(__('backpack.translation-manager::translation_manager.text')),
             'value'       => fn (TranslationLine $entry): mixed => $entry->getTranslation(App::getLocale()),
             'searchLogic' => function (Builder $query, mixed $column, string $search): void {
-                $query->orWhere('search', 'like', '%'.Str::slug($search).'%');
+                $query->orWhere('search', 'like', '%' . Str::slug($search) . '%');
             },
         ]);
 
@@ -55,7 +55,7 @@ class TranslationManagerCrudController extends CrudController
             'label' => ucfirst(__('backpack.translation-manager::translation_manager.key')),
             'type'  => 'custom_html',
             'value' => function (TranslationLine $entry): string {
-                return '<span class="badge" title="'.$entry->group_key.'">'.Str::limit($entry->group_key, 50).'</span>';
+                return '<span class="badge" title="' . $entry->group_key . '">' . Str::limit($entry->group_key, 50) . '</span>';
             },
             'orderable'  => true,
             'orderLogic' => function (Builder $query, mixed $column, mixed $columnDirection): Builder {
@@ -77,7 +77,7 @@ class TranslationManagerCrudController extends CrudController
                 'value' => function (TranslationLine $entry): string {
                     $value = $entry->database ? 'database' : 'file';
 
-                    return '<i class="las la-'.$value.'" title="'.$value.'"></i>';
+                    return '<i class="las la-' . $value . '" title="' . $value . '"></i>';
                 },
             ]);
         }
@@ -118,7 +118,22 @@ class TranslationManagerCrudController extends CrudController
      */
     protected function setupCreateOperation(): void
     {
+        $attributes = [];
+
         $groups = config('backpack.translation-manager.groups', []);
+        $canCreate = config('backpack.translation-manager.create');
+
+        if (!$canCreate) {
+            $attributes = ['disabled' => 'disabled'];
+        }
+
+        $this->crud->setValidation([
+            'group' => 'required',
+            'key' => 'required',
+        ], [], [
+            'group' => __('backpack.translation-manager::translation_manager.group'),
+            'key' => __('backpack.translation-manager::translation_manager.key')
+        ]);
 
         CRUD::addField([
             'name'       => 'group',
@@ -126,9 +141,7 @@ class TranslationManagerCrudController extends CrudController
             'wrapper'    => ['class' => 'form-group col-md-4'],
             'type'       => empty($groups) ? 'text' : 'select_from_array',
             'options'    => $groups,
-            'attributes' => [
-                'disabled' => 'disabled',
-            ],
+            'attributes' => $attributes,
         ]);
 
         CRUD::addField([
@@ -136,9 +149,7 @@ class TranslationManagerCrudController extends CrudController
             'label'      => ucfirst(__('backpack.translation-manager::translation_manager.key')),
             'type'       => 'text',
             'wrapper'    => ['class' => 'form-group col-md-8'],
-            'attributes' => [
-                'disabled' => 'disabled',
-            ],
+            'attributes' => $attributes,
         ]);
 
         CRUD::addField([
@@ -163,7 +174,7 @@ class TranslationManagerCrudController extends CrudController
      */
     public function setupFilters(): void
     {
-        if (! backpack_pro()) {
+        if (!backpack_pro()) {
             return;
         }
 
