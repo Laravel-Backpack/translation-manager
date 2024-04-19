@@ -225,13 +225,19 @@ class TranslationManagerCrudController extends CrudController
 
     private function getValidationRuleWithLocales(array $rulesToMerge = []): array
     {
-        $rules = collect(config('backpack.crud.locales'))->mapWithKeys(fn ($locale, $key) => ['text.'.$key => 'present'])->toArray();
+        $locales = config('backpack.crud.locales');
+        $localesCount = count($locales);
+
+        $rules = collect($locales)->mapWithKeys(fn ($locale, $key) => ['text.'.$key => 'bail|present'])->toArray();
+        $rules['text'] = ['bail', 'min:'.$localesCount, 'max:'.$localesCount];
 
         return array_merge($rules, $rulesToMerge);
     }
 
     private function getValidationMessagesWithLocale(array $messagesToMerge = []): array
     {
-        return array_merge(['text.*' => __('backpack.translation-manager::translation_manager.validation_missing_languages')], $messagesToMerge);
+        return array_merge([
+            'text.*' => __('backpack.translation-manager::translation_manager.validation_missing_languages')], 
+            $messagesToMerge);
     }
 }
