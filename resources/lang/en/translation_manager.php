@@ -23,4 +23,8 @@ return [
     'revert_confirmation_message' => 'The translation has been reverted successfully',
     'revert_confirmation_not_title' => 'Translation <strong>not</strong> reverted',
     'revert_confirmation_not_message' => "There's been an error. Your translation might not have been reverted.",
+    
+    'validation_missing_languages' => 'Missing translation keys.',
+    'validation_missing_group' => 'Missing translation group key.',
+    'validation_missing_key' => 'Missing translation key.',
 ];
