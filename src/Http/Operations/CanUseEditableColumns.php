@@ -33,7 +33,7 @@ if (class_exists(\Backpack\EditableColumns\AddonServiceProvider::class)) {
                 $text = $entry->text;
                 $text[$locale] = $request->value;
 
-                $entry = TranslationLineOriginal::find($entry->id_database);
+                $entry = TranslationLineOriginal::findOrFail($entry->id_database);
                 $entry->text = $text;
                 $entry->save();
             } else {
@@ -49,7 +49,7 @@ if (class_exists(\Backpack\EditableColumns\AddonServiceProvider::class)) {
             }
 
             // fetch the entry from sushi
-            $entry = TranslationLine::find($request->id);
+            $entry = TranslationLine::findOrFail($request->id);
             $entry->database = true;
 
             return $entry;

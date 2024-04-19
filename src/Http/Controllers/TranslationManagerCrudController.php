@@ -23,14 +23,14 @@ class TranslationManagerCrudController extends CrudController
     public function setup(): void
     {
         CRUD::setModel(TranslationLine::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/translation-manager');
+        CRUD::setRoute(config('backpack.base.route_prefix').'/translation-manager');
         CRUD::setEntityNameStrings(__('backpack.translation-manager::translation_manager.translation_line'), __('backpack.translation-manager::translation_manager.translation_lines'));
 
-        // access to edit and delete buttons
+        // access to delete button
         CRUD::setAccessCondition(['delete'], fn (TranslationLine $entry) => $entry->database);
 
         // disable create
-        if (!config('backpack.translation-manager.create', false)) {
+        if (! config('backpack.translation-manager.create', false)) {
             CRUD::denyAccess('create');
         }
     }
@@ -46,7 +46,7 @@ class TranslationManagerCrudController extends CrudController
             'label'       => ucfirst(__('backpack.translation-manager::translation_manager.text')),
             'value'       => fn (TranslationLine $entry): mixed => $entry->getTranslation(App::getLocale()),
             'searchLogic' => function (Builder $query, mixed $column, string $search): void {
-                $query->orWhere('search', 'like', '%' . Str::slug($search) . '%');
+                $query->orWhere('search', 'like', '%'.Str::slug($search).'%');
             },
         ]);
 
@@ -55,7 +55,7 @@ class TranslationManagerCrudController extends CrudController
             'label' => ucfirst(__('backpack.translation-manager::translation_manager.key')),
             'type'  => 'custom_html',
             'value' => function (TranslationLine $entry): string {
-                return '<span class="badge" title="' . $entry->group_key . '">' . Str::limit($entry->group_key, 50) . '</span>';
+                return '<span class="badge" title="'.$entry->group_key.'">'.Str::limit($entry->group_key, 50).'</span>';
             },
             'orderable'  => true,
             'orderLogic' => function (Builder $query, mixed $column, mixed $columnDirection): Builder {
@@ -77,7 +77,7 @@ class TranslationManagerCrudController extends CrudController
                 'value' => function (TranslationLine $entry): string {
                     $value = $entry->database ? 'database' : 'file';
 
-                    return '<i class="las la-' . $value . '" title="' . $value . '"></i>';
+                    return '<i class="las la-'.$value.'" title="'.$value.'"></i>';
                 },
             ]);
         }
@@ -118,55 +118,35 @@ class TranslationManagerCrudController extends CrudController
      */
     protected function setupCreateOperation(): void
     {
-        $attributes = [];
-
-        $groups = config('backpack.translation-manager.groups', []);
-        $canCreate = config('backpack.translation-manager.create');
-
-        if (!$canCreate) {
-            $attributes = ['disabled' => 'disabled'];
-        }
-
-        $this->crud->setValidation([
+        $validationRule = $this->getValidationRuleWithLocales([
             'group' => 'required',
-            'key' => 'required',
-        ], [], [
-            'group' => __('backpack.translation-manager::translation_manager.group'),
-            'key' => __('backpack.translation-manager::translation_manager.key')
+            'key'   => 'required',
         ]);
 
-        CRUD::addField([
-            'name'       => 'group',
-            'label'      => ucfirst(__('backpack.translation-manager::translation_manager.group')),
-            'wrapper'    => ['class' => 'form-group col-md-4'],
-            'type'       => empty($groups) ? 'text' : 'select_from_array',
-            'options'    => $groups,
-            'attributes' => $attributes,
+        $validationMessages = $this->getValidationMessagesWithLocale([
+            'group.required' => __('backpack.translation-manager::translation_manager.validation_missing_group'),
+            'key.required'   => __('backpack.translation-manager::translation_manager.validation_missing_key'),
         ]);
 
-        CRUD::addField([
-            'name'       => 'key',
-            'label'      => ucfirst(__('backpack.translation-manager::translation_manager.key')),
-            'type'       => 'text',
-            'wrapper'    => ['class' => 'form-group col-md-8'],
-            'attributes' => $attributes,
-        ]);
+        CRUD::setValidation($validationRule, $validationMessages);
 
-        CRUD::addField([
-            'name'  => 'text',
-            'label' => ucfirst(__('backpack.translation-manager::translation_manager.text')),
-            'type'  => 'translation-edit-field',
-        ]);
-
-        CRUD::removeSaveAction('save_and_edit');
+        $this->setupFormFields();
     }
 
     /**
      * Setup Update Operation
      */
     protected function setupUpdateOperation(): void
-    {
-        $this->setupCreateOperation();
+    {    
+        CRUD::setValidation($this->getValidationRuleWithLocales(), $this->getValidationMessagesWithLocale());
+
+        // since we added group and key as fields, we don't want them 
+        // to be editable by the user on the update operation.
+        CRUD::setOperationSetting('strippedRequest', function ($request): array {
+            return $request->only(['text']);
+        });
+
+         $this->setupFormFields(true);
     }
 
     /**
@@ -174,7 +154,7 @@ class TranslationManagerCrudController extends CrudController
      */
     public function setupFilters(): void
     {
-        if (!backpack_pro()) {
+        if (! backpack_pro()) {
             return;
         }
 
@@ -203,5 +183,55 @@ class TranslationManagerCrudController extends CrudController
         ], function (string $option): void {
             CRUD::addClause('where', 'database', $option === 'database');
         });
+    }
+
+
+    private function setupFormFields(bool $forceDisabledFields = false): void
+    {
+        $attributes = [];
+
+        $groups = config('backpack.translation-manager.groups', []);
+        $canCreate = config('backpack.translation-manager.create');
+
+        if (! $canCreate || $forceDisabledFields) {
+            $attributes = ['disabled' => 'disabled'];
+        }        
+
+        CRUD::addField([
+            'name'       => 'group',
+            'label'      => ucfirst(__('backpack.translation-manager::translation_manager.group')),
+            'wrapper'    => ['class' => 'form-group col-md-4'],
+            'type'       => empty($groups) ? 'text' : 'select_from_array',
+            'options'    => $groups,
+            'attributes' => $attributes,
+        ]);
+
+        CRUD::addField([
+            'name'       => 'key',
+            'label'      => ucfirst(__('backpack.translation-manager::translation_manager.key')),
+            'type'       => 'text',
+            'wrapper'    => ['class' => 'form-group col-md-8'],
+            'attributes' => $attributes,
+        ]);
+
+        CRUD::addField([
+            'name'  => 'text',
+            'label' => ucfirst(__('backpack.translation-manager::translation_manager.text')),
+            'type'  => 'translation-edit-field',
+        ]);
+
+        CRUD::removeSaveAction('save_and_edit');
+    }
+
+    private function getValidationRuleWithLocales(array $rulesToMerge = []): array
+    {
+        $rules = collect(config('backpack.crud.locales'))->mapWithKeys(fn ($locale, $key) => ['text.'.$key => 'present'])->toArray();
+
+        return array_merge($rules, $rulesToMerge);
+    }
+
+    private function getValidationMessagesWithLocale(array $messagesToMerge = []): array
+    {
+        return array_merge(['text.*' => __('backpack.translation-manager::translation_manager.validation_missing_languages')], $messagesToMerge);
     }
 }
