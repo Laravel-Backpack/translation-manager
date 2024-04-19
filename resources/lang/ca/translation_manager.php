@@ -23,4 +23,8 @@ return [
     'revert_confirmation_message' => 'La traducció s\'ha revertit correctament',
     'revert_confirmation_not_title' => 'Traducció <strong>no</strong> revertida',
     'revert_confirmation_not_message' => 'Hi ha hagut un error. És possible que la teva traducció no s\'hagi pogut revertir.',
+
+    'validation_missing_languages' => 'Falten claus de traducció.',
+    'validation_missing_group' => 'Falta la clau del grup.',
+    'validation_missing_key' => 'Falta la clau de traducció.',
 ];

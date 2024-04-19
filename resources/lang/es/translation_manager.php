@@ -23,4 +23,8 @@ return [
     'revert_confirmation_message' => 'La traducción ha sido revertida con éxito',
     'revert_confirmation_not_title' => 'Traducción <strong>no</strong> revertida',
     'revert_confirmation_not_message' => 'Ha habido un error. Es posible que tu traducción no haya sido revertida.',
+
+    'validation_missing_languages' => 'Faltan claves de traducción.',
+    'validation_missing_group' => 'Falta la clave del grupo.',
+    'validation_missing_key' => 'Falta la clave de traducción.',
 ];

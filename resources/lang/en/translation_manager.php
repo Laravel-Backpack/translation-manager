@@ -25,6 +25,6 @@ return [
     'revert_confirmation_not_message' => "There's been an error. Your translation might not have been reverted.",
     
     'validation_missing_languages' => 'Missing translation keys.',
-    'validation_missing_group' => 'Missing group key.',
-    'validation_missing_key' => 'Missing key.',
+    'validation_missing_group' => 'Missing translation group key.',
+    'validation_missing_key' => 'Missing translation key.',
 ];
