@@ -55,7 +55,7 @@ class TranslationManagerCrudController extends CrudController
             'label' => ucfirst(__('backpack.translation-manager::translation_manager.key')),
             'type'  => 'custom_html',
             'value' => function (TranslationLine $entry): string {
-                return '<span class="badge" title="'.$entry->group_key.'">'.Str::limit($entry->group_key, 50).'</span>';
+                return '<span class="badge text-bg-secondary badge-primary" title="'.$entry->group_key.'">'.Str::limit($entry->group_key, 50).'</span>';
             },
             'orderable'  => true,
             'orderLogic' => function (Builder $query, mixed $column, mixed $columnDirection): Builder {
