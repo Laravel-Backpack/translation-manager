@@ -86,17 +86,18 @@ class TranslationLine extends TranslationLineOriginal
 
         $filePaths = config('backpack.translation-manager.file_paths', []);
 
-        if (config('backpack.translation-manager.load_all_registered_translation_paths', true)) {
-            $reflectionClass = new ReflectionClass(TranslationLoaderManager::class);
-            $hints = $reflectionClass->getProperty('hints')->getValue(app()['translation.loader']);
-            $filePaths = array_merge($filePaths, array_values($hints));
-        }
-
         // file entries
         collect($filePaths)
             ->flatMap(fn (string $path) => File::allFiles($path))
             ->filter(fn (SplFileInfo $file) => $file->getExtension() === 'php')
             ->each(function (SplFileInfo $file) use (&$entries) {
+                
+                // per Laravel convention, namespaced translation files are located
+                // in `vendor/{$namespace}` directory do not load them
+                if(str_starts_with($file->getRelativePath(), 'vendor')) {
+                    return;
+                }
+
                 $group = Str::beforeLast($file->getFilename(), '.php');
                 $locale = Str::of($file->getPath())->afterLast('/')->afterLast('\\')->value();
 

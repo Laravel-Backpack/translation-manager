@@ -1,10 +1,6 @@
 <?php
 
 return [
-    // This will automatically load all translation paths registered by packages
-    // If you want to set the file paths manually, set this to false
-    'load_all_registered_translation_paths' => true,
-
     // Paths from where the language files are loaded
     // You can restrict the paths to a specific set
     // It's only applied if load_all_registered_translation_paths is set to false
