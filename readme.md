@@ -6,7 +6,7 @@
 Translation Manager provides a simple user interface to help you deal with translations in your Backpack application.
 At a quick glance, some of the most relevant features are:
 
-- View a list of all translations present in your application's language files (including vendor translations).
+- View a list of all translations present in your application's language files.
 - Edit translations directly from the interface.
 - Search and filter translations for easy management.
 
@@ -71,7 +71,7 @@ php artisan vendor:publish --provider="Backpack\TranslationManager\AddonServiceP
 
 ![lm_list_view2](https://github.com/Laravel-Backpack/language-manager/assets/1032474/f65a24ea-473d-4fec-8ffc-b8137bcb1b9f)
 
-The list view displays a comprehensive list of all translations within your application. By default, all translations including vendor translations are displayed in the list view. If you don't want to see vendor translations, you can set the config option `load_all_registered_translation_paths` to `false` in `config/backpack/translation-manager.php`.
+The list view displays a comprehensive list of all translations within your application translation folder (usually `lang/`). Please do note that translations in `lang/vendor/xxx` folders are not possible to translate using this package.
 
 Additionally, if you have [Backpack Pro](https://backpackforlaravel.com/products/pro-for-unlimited-projects) installed, your admin can also see and use the filters, to quickly narrow down translations.
 
