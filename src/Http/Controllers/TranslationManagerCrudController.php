@@ -86,9 +86,11 @@ class TranslationManagerCrudController extends CrudController
         CRUD::removeButton('delete');
         CRUD::addButtonFromView('line', 'revert', 'revert', 'end');
 
-        // enable details row
-        CRUD::enableDetailsRow();
-        CRUD::setDetailsRowView('backpack.translation-manager::admin.details_row');
+        // enable details row when pro package is installed
+        if (backpack_pro()) {
+            CRUD::enableDetailsRow();
+            CRUD::setDetailsRowView('backpack.translation-manager::admin.details_row');
+        }
 
         // set default order
         CRUD::orderBy('group', 'asc')->orderBy('key', 'asc');
@@ -137,16 +139,16 @@ class TranslationManagerCrudController extends CrudController
      * Setup Update Operation
      */
     protected function setupUpdateOperation(): void
-    {    
+    {
         CRUD::setValidation($this->getValidationRuleWithLocales(), $this->getValidationMessagesWithLocale());
 
-        // since we added group and key as fields, we don't want them 
+        // since we added group and key as fields, we don't want them
         // to be editable by the user on the update operation.
         CRUD::setOperationSetting('strippedRequest', function ($request): array {
             return $request->only(['text']);
         });
 
-         $this->setupFormFields(true);
+        $this->setupFormFields(true);
     }
 
     /**
@@ -185,7 +187,6 @@ class TranslationManagerCrudController extends CrudController
         });
     }
 
-
     private function setupFormFields(bool $forceDisabledFields = false): void
     {
         $attributes = [];
@@ -195,7 +196,7 @@ class TranslationManagerCrudController extends CrudController
 
         if (! $canCreate || $forceDisabledFields) {
             $attributes = ['disabled' => 'disabled'];
-        }        
+        }
 
         CRUD::addField([
             'name'       => 'group',
@@ -237,7 +238,7 @@ class TranslationManagerCrudController extends CrudController
     private function getValidationMessagesWithLocale(array $messagesToMerge = []): array
     {
         return array_merge([
-            'text.*' => __('backpack.translation-manager::translation_manager.validation_missing_languages')], 
+            'text.*' => __('backpack.translation-manager::translation_manager.validation_missing_languages')],
             $messagesToMerge);
     }
 }
