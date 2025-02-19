@@ -28,18 +28,6 @@
     "prefer-stable": true,
     "repositories": [
         {
-            "type": "composer",
-            "url": "https://repo.backpackforlaravel.com/"
-        },  
-        {
-            "type": "vcs",
-            "url": "https://github.com/laravel-shift/gravatar.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/laravel-shift/alerts.git"
-        },
-        {
             "type": "vcs",
             "url": "https://github.com/laravel-shift/laravel-translation-loader.git"
         },
