@@ -20,13 +20,13 @@
     ],
     "require": {
         "backpack/crud": "^6.7",
-        "spatie/laravel-translation-loader": "^2.8",
+        "spatie/laravel-translation-loader": "dev-l12-compatibility as 2.8",
         "outhebox/blade-flags": "^1.2",
         "calebporzio/sushi": "^2.4"
     },
     "require-dev": {
         "phpunit/phpunit": "~10.0|~11.0",
-        "orchestra/testbench": "~8.0|~9.0",
+        "orchestra/testbench": "~8.0|~9.0|~10.0",
         "larastan/larastan": "^2.9"
     },
     "autoload": {
