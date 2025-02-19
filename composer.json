@@ -19,11 +19,35 @@
         "Laravel", "Backpack", "Backpack for Laravel", "Backpack Addon", "TranslationManager"
     ],
     "require": {
-        "backpack/crud": "^6.7",
+        "backpack/crud": "dev-update-laravel as 6.7",
         "spatie/laravel-translation-loader": "dev-l12-compatibility as 2.8",
         "outhebox/blade-flags": "dev-l12-compatibility",
         "calebporzio/sushi": "^2.5"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.backpackforlaravel.com/"
+        },  
+        {
+            "type": "vcs",
+            "url": "https://github.com/laravel-shift/gravatar.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laravel-shift/alerts.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laravel-shift/laravel-translation-loader.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laravel-shift/blade-flags.git"
+        }
+    ],
     "require-dev": {
         "phpunit/phpunit": "~10.0|~11.0",
         "orchestra/testbench": "~8.0|~9.0|~10.0",
