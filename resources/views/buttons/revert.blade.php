@@ -1,5 +1,17 @@
 @if ($crud->hasAccess('delete', $entry))
-    <span onclick="revertEntry(this)" data-route="{{ url($crud->route.'/'.$entry->getKey()) }}" class="btn btn-sm btn-link" data-button-type="revert">
+    <span onclick="revertEntry(this)"
+        data-route="{{ url($crud->route.'/'.$entry->getKey()) }}"
+        class="btn btn-sm btn-link"
+        data-button-type="revert"
+        data-trans-warning="{{ ucfirst(trans('backpack::base.warning')) }}"
+        data-trans-cancel="{{ ucfirst(trans('backpack::crud.cancel')) }}"
+        data-trans-revert="{{ ucfirst(trans('backpack.translation-manager::translation_manager.revert')) }}"
+        data-trans-revert-confirm="{{ trans('backpack.translation-manager::translation_manager.revert_confirm') }}"
+        data-trans-revert-confirmation-title="{{ trans('backpack.translation-manager::translation_manager.revert_confirmation_title') }}"
+        data-trans-revert-confirmation-message="{{ trans('backpack.translation-manager::translation_manager.revert_confirmation_message') }}"
+        data-trans-revert-confirmation-not-title="{{ trans('backpack.translation-manager::translation_manager.revert_confirmation_not_title') }}"
+        data-trans-revert-confirmation-not-message="{{ trans('backpack.translation-manager::translation_manager.revert_confirmation_not_message') }}"
+    >
         <span>
             <i class="la la-undo"></i>
             {{ ucfirst(trans('backpack.translation-manager::translation_manager.revert')) }}
@@ -8,19 +20,19 @@
 @endif
 
 @push('after_scripts') @if (request()->ajax()) @endpush @endif
-@bassetBlock('backpack/translation-manager/buttons/revert-button-'.app()->getLocale().'.js')
+@bassetBlock('backpack/translation-manager/buttons/revert-button.js')
 <script>
     if (typeof revertEntry !== 'function') {
         function revertEntry(button) {
             let trans = {
-                warning: '{!! addslashes(ucfirst(trans("backpack::base.warning"))) !!}',
-                cancel: '{!! addslashes(ucfirst(trans("backpack::crud.cancel"))) !!}',
-                revert: '{!! addslashes(ucfirst(trans("backpack.translation-manager::translation_manager.revert"))) !!}',
-                revert_confirm: '{!! addslashes(trans("backpack.translation-manager::translation_manager.revert_confirm")) !!}',
-                revert_confirmation_title: '{!! addslashes(trans("backpack.translation-manager::translation_manager.revert_confirmation_title")) !!}',
-                revert_confirmation_message: '{!! addslashes(trans("backpack.translation-manager::translation_manager.revert_confirmation_message")) !!}',
-                revert_confirmation_not_title: '{!! addslashes(trans("backpack.translation-manager::translation_manager.revert_confirmation_not_title")) !!}',
-                revert_confirmation_not_message: '{!! addslashes(trans("backpack.translation-manager::translation_manager.revert_confirmation_not_message")) !!}',
+                warning: button.dataset.transWarning,
+                cancel: button.dataset.transCancel,
+                revert: button.dataset.transRevert,
+                revert_confirm: button.dataset.transRevertConfirm,
+                revert_confirmation_title: button.dataset.transRevertConfirmationTitle,
+                revert_confirmation_message: button.dataset.transRevertConfirmationMessage,
+                revert_confirmation_not_title: button.dataset.transRevertConfirmationNotTitle,
+                revert_confirmation_not_message: button.dataset.transRevertConfirmationNotMessage,
             };
 
             swal({
