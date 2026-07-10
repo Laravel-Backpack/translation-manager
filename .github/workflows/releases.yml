@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout Code" 
-        uses: actions/checkout@v3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: main
           token: ${{ secrets.GH_ACTION_PAT }}
       - name: "Generate full changelog"
         id: generate_changelog
-        uses: heinrichreimer/action-github-changelog-generator@v2.3
+        uses: heinrichreimer/action-github-changelog-generator@e60b5a2bd9fcd88dadf6345ff8327863fb8b490f # v2.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }} 
           output: CHANGELOG.md
@@ -33,13 +33,13 @@ jobs:
       - name: Commit changes
         id: commit_changelog
         timeout-minutes: 1
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@290ea2c423ad77ca9c62ae0f5b224379612c0321 # v10.0.0
         with:
           message: 'Update CHANGELOG.md'
           branch: main
       - name: "Generate new changelog"
         id: generate_changelog_partial
-        uses: heinrichreimer/action-github-changelog-generator@v2.3
+        uses: heinrichreimer/action-github-changelog-generator@e60b5a2bd9fcd88dadf6345ff8327863fb8b490f # v2.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }} 
           output: UPDATES.md
@@ -59,7 +59,7 @@ jobs:
           content="${content//$'\r'/'%0D'}"
           # end of optional handling for multi line json
           echo "::set-output name=changelog::$content"
-      - uses: avakar/tag-and-release@v1
+      - uses: avakar/tag-and-release@8f4b627f03fe59381267d3925d39191e27f44236 # v1.0.0
         with:
           tag_name: ${{ github.event.inputs.new_tag }}
           body: ${{steps.extract_change.outputs.changelog}}
