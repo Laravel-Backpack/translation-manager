@@ -3,7 +3,7 @@
 @endphp
 
 <div translation-edit-field data-init-function="bpFieldInitTranslationEditField" class="form-group col-sm-12 mb-3">
-    <label>{{ $label }}</label>
+    <label>{{ $field['label'] }}</label>
 
     <div class="align-items-center justify-content-between d-flex mb-2 w-100">
         <div switcher class="input-group input-group-sm me-2" style="max-width: 10rem;">
